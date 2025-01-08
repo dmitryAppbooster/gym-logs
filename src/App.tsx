@@ -6,7 +6,7 @@ import { Notifications } from "@mantine/notifications";
 import { BrowserRouter, Route, Routes } from "react-router";
 import "./App.module.css";
 import { Layout } from "./pages/layout/index";
-import { Logs } from "./pages/logs/index";
+import { Logs } from "./pages/logs-page/index";
 import { theme } from "./theme";
 
 export default function App() {

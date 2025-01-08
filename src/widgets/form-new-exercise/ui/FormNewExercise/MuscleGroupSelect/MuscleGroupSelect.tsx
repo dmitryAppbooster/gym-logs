@@ -1,7 +1,6 @@
 import { CloseButton, Group, NumberInput, Select } from "@mantine/core";
 import { memo } from "react";
-import { ExistedMuscle, MUSCLES } from "../../../../../entities/exercise";
-import { getRandomIndex } from "../../../../../shared/libs";
+import { ExistedMuscle } from "../../../../../entities/exercise";
 import classes from "./MuscleGroupSelect.module.css";
 
 type MuscleGroupSelectProps = {

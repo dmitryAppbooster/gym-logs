@@ -1,6 +1,6 @@
-import { Menu, Button, Text, rem, Burger, MenuProps } from "@mantine/core";
-import { ButtonAddNewExercise } from "../../form-new-exercise";
+import { Burger, Menu, MenuProps } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { ButtonAddNewExercise } from "../../form-new-exercise";
 
 const MENU_ITEMS = {
   addNewExercise: <ButtonAddNewExercise />,

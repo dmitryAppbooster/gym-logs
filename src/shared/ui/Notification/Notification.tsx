@@ -1,4 +1,4 @@
-import { Notification as MantineNotification, NotificationProps } from "@mantine/core";
+import { Notification as MantineNotification } from "@mantine/core";
 
 export const Notification = () => {
   return (

@@ -3,11 +3,11 @@ import "@mantine/core/styles.css";
 import { Notifications } from "@mantine/notifications";
 import { BrowserRouter, Route, Routes } from "react-router";
 import "./App.module.css";
-import { Charts } from "./pages/charts";
-import { Layout } from "./pages/layout";
-import { Logs } from "./pages/logs";
-import { WorkoutTemplates } from "./pages/workout-templates";
+import { Layout } from "@/pages/layout";
+import { WorkoutTemplates } from "@/pages/workout-templates";
 import { theme } from "./theme";
+import { Charts } from "@/pages/charts";
+import { Logs } from "@/pages/logs";
 
 export default function App() {
   return (

@@ -3,7 +3,7 @@ import "@mantine/core/styles.css";
 import { Notifications } from "@mantine/notifications";
 import { BrowserRouter, Route, Routes } from "react-router";
 import "./App.module.css";
-import { Layout } from "@/pages/layout";
+import { Layout } from "./pages/layout/index";
 import { WorkoutTemplates } from "@/pages/workout-templates";
 import { theme } from "./theme";
 import { Charts } from "@/pages/charts";

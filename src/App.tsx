@@ -1,13 +1,13 @@
 import { MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
+import { Notifications } from "@mantine/notifications";
 import { BrowserRouter, Route, Routes } from "react-router";
 import "./App.module.css";
-import { Chats } from "./pages/chats";
+import { Charts } from "./pages/charts";
 import { Layout } from "./pages/layout";
 import { Logs } from "./pages/logs";
 import { WorkoutTemplates } from "./pages/workout-templates";
 import { theme } from "./theme";
-import { Notifications } from "@mantine/notifications";
 
 export default function App() {
   return (
@@ -22,7 +22,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="/logs" element={<Logs />} />
-            <Route path="/charts" element={<Chats />} />
+            <Route path="/charts" element={<Charts />} />
             <Route path="/templates" element={<WorkoutTemplates />} />
           </Route>
         </Routes>

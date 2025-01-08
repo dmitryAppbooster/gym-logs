@@ -1,12 +1,12 @@
-import { Charts } from "@/pages/charts";
-import { WorkoutTemplates } from "@/pages/workout-templates";
 import { MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
 import { Notifications } from "@mantine/notifications";
 import { BrowserRouter, Route, Routes } from "react-router";
 import "./App.module.css";
+import { Charts } from "./pages/charts";
 import { Layout } from "./pages/layout/index";
-import { Logs } from "./pages/logs-page/index";
+import { Logs } from "./pages/logs-page";
+import { WorkoutTemplates } from "./pages/workout-templates";
 import { theme } from "./theme";
 
 export default function App() {

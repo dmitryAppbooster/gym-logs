@@ -1,1 +1,3 @@
-export { Charts } from "./ui/Charts";
+import { Charts } from "./ui/Charts";
+
+export { Charts };

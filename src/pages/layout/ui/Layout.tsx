@@ -9,7 +9,7 @@ export const Layout = () => {
       <Outlet />
       <ActionsMenu
         menuTargetClassName={classes.burgerMenu}
-        menuItems={["addNewExercise"]}
+        menuItems={["addNewExercise", "addNewTrainingSession"]}
       />
       <Footer className={classes.footer} />
     </div>

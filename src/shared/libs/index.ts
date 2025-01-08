@@ -1,1 +1,9 @@
-export { getRandomIndex } from "./array-helpers/getRandomIndex";
+import {
+  getCurrentDate,
+  getCurrentDateWithOutTime,
+} from "./date/getCurrentDate";
+import { getRandomIndex } from "./array-helpers/getRandomIndex";
+
+// helpers
+
+export { getCurrentDate, getRandomIndex, getCurrentDateWithOutTime };

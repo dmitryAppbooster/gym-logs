@@ -1,9 +1,11 @@
+import { ButtonAddTrainingSession } from "@/features/training-session";
 import { Burger, Menu, MenuProps } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { ButtonAddNewExercise } from "../../form-new-exercise";
 
 const MENU_ITEMS = {
   addNewExercise: <ButtonAddNewExercise />,
+  addNewTrainingSession: <ButtonAddTrainingSession />,
 };
 
 type ActionsMenuProps = {
@@ -38,7 +40,7 @@ export const ActionsMenu = ({
 
       <Menu.Dropdown>
         {menuItems.map((menuItem) => (
-          <Menu.Item>{MENU_ITEMS[menuItem]}</Menu.Item>
+          <Menu.Item key={menuItem}>{MENU_ITEMS[menuItem]}</Menu.Item>
         ))}
       </Menu.Dropdown>
     </Menu>

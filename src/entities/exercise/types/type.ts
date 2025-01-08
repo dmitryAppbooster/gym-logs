@@ -15,3 +15,12 @@ export type NewExercise = {
   videoUrl?: string;
   techniqueDetails?: string;
 };
+
+export type Exercise = {
+  id: string;
+  name: string;
+  muscleGroups: MuscleGroup[];
+  imageUrl?: string;
+  videoUrl?: string;
+  techniqueDetails?: string;
+};

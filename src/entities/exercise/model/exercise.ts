@@ -1,11 +1,12 @@
 import { makeAutoObservable } from "mobx";
 import { ALL_EXERCISES } from "../const/exercises";
-import type { NewExercise } from "../types/type";
+import type { Exercise, NewExercise } from "../types/type";
+import { randomId } from "@mantine/hooks";
 
 const KEY_ALL_EXERCISES = "ALL_EXERCISES";
 
 class ExercisesStore {
-  allExercises: NewExercise[] = [];
+  allExercises: Exercise[] = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -17,20 +18,27 @@ class ExercisesStore {
     }
   }
 
+  get allExercisesIdsForSelect() {
+    return this.allExercises.map(({ id, name }) => ({
+      value: id,
+      label: name,
+    }));
+  }
+
   addExercise(newExercise: NewExercise) {
-    this.allExercises.push(newExercise);
+    this.allExercises.push({ ...newExercise, id: randomId() });
     localStorage.setItem(KEY_ALL_EXERCISES, JSON.stringify(this.allExercises));
   }
 
   updateExercise({
-    name,
+    id,
     updatedExercise,
   }: {
-    name: string;
+    id: string;
     updatedExercise: Partial<NewExercise>;
   }) {
     this.allExercises = this.allExercises.map((exercise) => {
-      if (exercise.name === name) {
+      if (exercise.id === id) {
         exercise = { ...exercise, ...updatedExercise };
       }
       return exercise;
@@ -38,9 +46,9 @@ class ExercisesStore {
     localStorage.setItem(KEY_ALL_EXERCISES, JSON.stringify(this.allExercises));
   }
 
-  deleteExercise(name: string) {
+  deleteExercise(id: string) {
     this.allExercises = this.allExercises.filter(
-      (exercise) => exercise.name !== name
+      (exercise) => exercise.id !== id
     );
     localStorage.setItem(KEY_ALL_EXERCISES, JSON.stringify(this.allExercises));
   }

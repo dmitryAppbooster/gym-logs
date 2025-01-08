@@ -14,8 +14,8 @@ export const Footer = ({ ...rest }: FooterProps) => {
         onChange={(value) => navigate(`/${value}`)}
       >
         <Tabs.List grow component={"ul"}>
-          <Tabs.Tab color="yellow" component={"li"} value="logs">
-            Logs
+          <Tabs.Tab color="yellow" component={"li"} value="training-session">
+            Тренировки
           </Tabs.Tab>
           <Tabs.Tab color="pink" component={"li"} value="charts">
             Charts

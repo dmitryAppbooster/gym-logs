@@ -4,12 +4,12 @@ import { Button, Group, Select, Stack } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { observer } from "mobx-react-lite";
 
-type NewSetRecordProps = {
+type FormNewExerciseWithSetsProps = {
   trainingSessionId: string;
 };
 
-export const NewExerciseWithSets = observer(
-  ({ trainingSessionId }: NewSetRecordProps) => {
+export const FormNewExerciseWithSets = observer(
+  ({ trainingSessionId }: FormNewExerciseWithSetsProps) => {
     const form = useForm<
       Omit<ExerciseWithSets, "createdAt" | "updatedAt" | "id">
     >({
@@ -54,6 +54,7 @@ export const NewExerciseWithSets = observer(
             key={form.key("exerciseId")}
             {...form.getInputProps("exerciseId")}
           />
+
           <Button type="submit">Добавить урпжнение</Button>
         </Group>
       </Stack>

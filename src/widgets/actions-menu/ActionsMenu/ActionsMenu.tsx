@@ -38,9 +38,11 @@ export const ActionsMenu = ({
         />
       </Menu.Target>
 
-      <Menu.Dropdown>
+      <Menu.Dropdown component="ul">
         {menuItems.map((menuItem) => (
-          <Menu.Item key={menuItem}>{MENU_ITEMS[menuItem]}</Menu.Item>
+          <Menu.Item component="li" key={menuItem}>
+            {MENU_ITEMS[menuItem]}
+          </Menu.Item>
         ))}
       </Menu.Dropdown>
     </Menu>

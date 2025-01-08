@@ -11,7 +11,13 @@ export const ButtonAddNewExercise = ({
 
   return (
     <>
-      <Button variant="transparent" size="compact-md" color="dark" onClick={open} {...rest}>
+      <Button
+        variant="transparent"
+        size="compact-md"
+        color="dark"
+        onClick={open}
+        {...rest}
+      >
         Добавить новое упражнение
       </Button>
 

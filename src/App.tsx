@@ -4,7 +4,8 @@ import { Notifications } from "@mantine/notifications";
 import { BrowserRouter, Route, Routes } from "react-router";
 import { Charts } from "./pages/charts";
 import { Layout } from "./pages/layout/index";
-import { TrainingSessions } from "./pages/training-sessions";
+import { NewTrainingSession } from "./pages/training-session-new";
+import { TrainingSessions } from "./pages/training-sessions-index";
 import { WorkoutTemplates } from "./pages/workout-templates";
 import "./styles.css";
 import { theme } from "./theme";
@@ -24,6 +25,10 @@ export default function App() {
             <Route path="/training-session" element={<TrainingSessions />} />
             <Route path="/charts" element={<Charts />} />
             <Route path="/templates" element={<WorkoutTemplates />} />
+            <Route
+              path="/new-training-session"
+              element={<NewTrainingSession />}
+            />
           </Route>
         </Routes>
       </BrowserRouter>

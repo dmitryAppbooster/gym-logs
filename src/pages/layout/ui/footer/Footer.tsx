@@ -17,6 +17,13 @@ export const Footer = ({ ...rest }: FooterProps) => {
           <Tabs.Tab color="yellow" component={"li"} value="training-session">
             Тренировки
           </Tabs.Tab>
+          <Tabs.Tab
+            color="yellow"
+            component={"li"}
+            value="new-training-session"
+          >
+            Новая тренировка
+          </Tabs.Tab>
           <Tabs.Tab color="pink" component={"li"} value="charts">
             Charts
           </Tabs.Tab>

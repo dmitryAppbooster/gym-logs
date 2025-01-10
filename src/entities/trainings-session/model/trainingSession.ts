@@ -7,10 +7,10 @@ class TrainingSessionStore {
   trainingSessions: TrainingSession[] = [];
 
   constructor() {
-    makeAutoObservable(this);
+    makeAutoObservable(this, {}, { autoBind: true });
     const allExercisesFromStorage = localStorage.getItem(KEY_TRAINING_SESSIONS);
     if (allExercisesFromStorage) {
-      this.trainingSessions = JSON.parse(allExercisesFromStorage);
+      this.trainingSessions = JSON.parse(allExercisesFromStorage) || [];
     }
   }
 

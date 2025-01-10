@@ -9,10 +9,13 @@ class ExercisesStore {
   allExercises: Exercise[] = [];
 
   constructor() {
-    makeAutoObservable(this);
+    makeAutoObservable(this, {}, { autoBind: true });
     const allExercisesFromStorage = localStorage.getItem(KEY_ALL_EXERCISES);
     if (allExercisesFromStorage) {
-      this.allExercises =  [...JSON.parse(allExercisesFromStorage), ...ALL_EXERCISES];
+      this.allExercises = [
+        ...JSON.parse(allExercisesFromStorage),
+        ...ALL_EXERCISES,
+      ];
     } else {
       this.allExercises = ALL_EXERCISES || [];
     }

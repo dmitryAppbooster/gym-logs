@@ -1,4 +1,5 @@
-import { trainingSessionStore } from "@/entities/trainings-session/model/trainingSession";
+
+import { trainingSessionStore } from "@/entities/trainings-session";
 import { CardTrainingSession } from "@/widgets/card-training-session";
 import { Container } from "@mantine/core";
 import { observer } from "mobx-react-lite";

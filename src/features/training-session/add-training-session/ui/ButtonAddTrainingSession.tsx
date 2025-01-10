@@ -1,5 +1,5 @@
-import { TrainingSession } from "@/entities/trainings-session";
-import { trainingSessionStore } from "@/entities/trainings-session/model/trainingSession";
+import { TrainingSession, trainingSessionStore } from "@/entities/trainings-session";
+
 import { getCurrentDate, getCurrentDateWithOutTime } from "@/shared/libs";
 import { Button } from "@mantine/core";
 import { randomId } from "@mantine/hooks";

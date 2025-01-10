@@ -1,6 +1,6 @@
 import { ExerciseWithSets, WorkingSet } from "@/entities/trainings-session";
 import { getCurrentDate } from "@/shared/libs";
-import { autorun, makeAutoObservable } from "mobx";
+import { autorun, makeAutoObservable, runInAction } from "mobx";
 
 const KEY_NEW_TRAINING_SESSION_DATA = "NEW_TRAINING_SESSION_DATA";
 
@@ -16,14 +16,6 @@ class NewTrainingSessionStore {
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
-
-    autorun(() => {
-      if (this.status === "inProgress" && !this.intervalId) {
-        this.startTimer();
-      } else if (this.status === "paused" && this.intervalId) {
-        this.stopTimer();
-      }
-    });
   }
 
   get data() {
@@ -127,10 +119,14 @@ class NewTrainingSessionStore {
   }
 
   startTraining() {
-    console.log("HERE")
     if (this.status === "notStarted") {
       this.status = "inProgress";
+      this.startTimer();
       this.startedAt = new Date().toISOString();
+
+      if (!this.intervalId) {
+        this.startTimer();
+      }
     }
   }
 
@@ -138,6 +134,10 @@ class NewTrainingSessionStore {
     if (this.status === "inProgress") {
       this.status = "paused";
       this.pauseTime = new Date().getTime();
+
+      if (this.intervalId) {
+        this.stopTimer();
+      }
     }
   }
 
@@ -145,6 +145,10 @@ class NewTrainingSessionStore {
     if (this.status === "paused") {
       this.status = "inProgress";
       this.pauseTime = new Date().getTime();
+
+      if (!this.intervalId) {
+        this.startTimer();
+      }
     }
   }
 
@@ -158,7 +162,6 @@ class NewTrainingSessionStore {
   // Запуск таймера
   private startTimer() {
     this.intervalId = setInterval(() => {
-        console.log("HERE")
       this.duration = new Date().getTime() - new Date(this.startedAt).getTime();
     }, 1000);
   }

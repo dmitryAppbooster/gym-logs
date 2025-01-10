@@ -1,3 +1,3 @@
-import { ButtonAddTrainingSession } from "./add-training-session/ui/ButtonAddTrainingSession";
+import { ButtonNewTrainingSession } from "./new-training-session/ui/ButtonNewTrainingSession";
 
-export { ButtonAddTrainingSession };
+export { ButtonNewTrainingSession };

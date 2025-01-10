@@ -1,11 +1,11 @@
-import { ButtonAddTrainingSession } from "@/features/training-session";
+import { ButtonNewTrainingSession } from "@/features/training-session";
 import { Burger, Menu, MenuProps } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { ButtonAddNewExercise } from "../../form-new-exercise";
 
 const MENU_ITEMS = {
   addNewExercise: <ButtonAddNewExercise />,
-  addNewTrainingSession: <ButtonAddTrainingSession />,
+  addNewTrainingSession: <ButtonNewTrainingSession />,
 };
 
 type ActionsMenuProps = {

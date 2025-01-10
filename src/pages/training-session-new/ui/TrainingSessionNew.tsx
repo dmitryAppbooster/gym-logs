@@ -1,18 +1,22 @@
 import { Flex, Stack, Text } from "@mantine/core";
-import { NewTrainingSessionStore } from "../model/newTrainingSession";
+import { observer } from "mobx-react-lite";
+import { newTrainingSessionStore } from "../model/newTrainingSession";
 import { TrainingDuration } from "./TrainingDuration/TrainingDuration";
 
-export const NewTrainingSession = () => {
-  const newTrainingSession = new NewTrainingSessionStore();
+export const NewTrainingSession = observer(() => {
+  const { startedAt } = newTrainingSessionStore;
 
   return (
     <Stack component={"main"}>
       <Text>TrainingSession</Text>
       <Flex>
         <Text>дата наала:</Text>
-        <Text>{newTrainingSession.startedAt}</Text>
+        <Text>{startedAt}</Text>
       </Flex>
-      <TrainingDuration startedAt={newTrainingSession.startedAt} />
+      <Flex>
+        <Text>Продолжительность тренировки:</Text>
+        <TrainingDuration />
+      </Flex>
     </Stack>
   );
-};
+});

@@ -12,7 +12,7 @@ class ExercisesStore {
     makeAutoObservable(this);
     const allExercisesFromStorage = localStorage.getItem(KEY_ALL_EXERCISES);
     if (allExercisesFromStorage) {
-      this.allExercises = JSON.parse(allExercisesFromStorage);
+      this.allExercises =  [...JSON.parse(allExercisesFromStorage), ...ALL_EXERCISES];
     } else {
       this.allExercises = ALL_EXERCISES || [];
     }

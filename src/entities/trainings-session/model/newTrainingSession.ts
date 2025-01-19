@@ -1,6 +1,6 @@
 import { ExerciseWithSets, WorkingSet } from "@/entities/trainings-session";
 import { getCurrentDate } from "@/shared/libs";
-import { autorun, makeAutoObservable, runInAction } from "mobx";
+import { makeAutoObservable } from "mobx";
 
 const KEY_NEW_TRAINING_SESSION_DATA = "NEW_TRAINING_SESSION_DATA";
 
@@ -10,7 +10,10 @@ class NewTrainingSessionStore {
   exercisesWithSets: ExerciseWithSets[] = [];
   startedAt: string = "";
   status: TrainingStatus = "notStarted";
-  pauseTime: number = 0;
+  startPauseTime: number = 0;
+  endPauseTime: number = 0;
+  sumPauseTime: number = 0;
+  pausesArray: number[] = [];
   intervalId: number | undefined | NodeJS.Timeout = undefined;
   duration: number = 0;
 
@@ -133,7 +136,7 @@ class NewTrainingSessionStore {
   pauseTraining() {
     if (this.status === "inProgress") {
       this.status = "paused";
-      this.pauseTime = new Date().getTime();
+      this.startPauseTime = this.startPauseTime = new Date().getTime();
 
       if (this.intervalId) {
         this.stopTimer();
@@ -144,7 +147,10 @@ class NewTrainingSessionStore {
   resumeTraining() {
     if (this.status === "paused") {
       this.status = "inProgress";
-      this.pauseTime = new Date().getTime();
+      this.endPauseTime = new Date().getTime();
+      const pauseDuration = this.endPauseTime - this.startPauseTime;
+      this.pausesArray.push(pauseDuration);
+      this.sumPauseTime = this.sumPauseTime + pauseDuration;
 
       if (!this.intervalId) {
         this.startTimer();
@@ -161,8 +167,12 @@ class NewTrainingSessionStore {
 
   // Запуск таймера
   private startTimer() {
+    console.log(this.sumPauseTime);
     this.intervalId = setInterval(() => {
-      this.duration = new Date().getTime() - new Date(this.startedAt).getTime();
+      this.duration =
+        new Date().getTime() -
+        new Date(this.startedAt).getTime() -
+        this.sumPauseTime;
     }, 1000);
   }
 

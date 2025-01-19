@@ -16,14 +16,6 @@ class NewTrainingSessionStore {
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
-
-    autorun(() => {
-      if (this.status === "inProgress" && !this.intervalId) {
-        this.startTimer();
-      } else if (this.status === "paused" && this.intervalId) {
-        this.stopTimer();
-      }
-    });
   }
 
   get data() {
@@ -127,7 +119,7 @@ class NewTrainingSessionStore {
   }
 
   startTraining() {
-    console.log("HERE")
+    console.log(this.status)
     if (this.status === "notStarted") {
       this.status = "inProgress";
       this.startedAt = new Date().toISOString();
@@ -135,8 +127,10 @@ class NewTrainingSessionStore {
   }
 
   pauseTraining() {
+    console.log("PAUSE", this.status)
     if (this.status === "inProgress") {
       this.status = "paused";
+      this.stopTimer();
       this.pauseTime = new Date().getTime();
     }
   }
@@ -144,6 +138,7 @@ class NewTrainingSessionStore {
   resumeTraining() {
     if (this.status === "paused") {
       this.status = "inProgress";
+      this.startTimer();
       this.pauseTime = new Date().getTime();
     }
   }
@@ -155,15 +150,12 @@ class NewTrainingSessionStore {
     );
   }
 
-  // Запуск таймера
   private startTimer() {
     this.intervalId = setInterval(() => {
-        console.log("HERE")
       this.duration = new Date().getTime() - new Date(this.startedAt).getTime();
     }, 1000);
   }
 
-  // Остановка таймера
   private stopTimer() {
     if (this.intervalId) {
       clearInterval(this.intervalId);

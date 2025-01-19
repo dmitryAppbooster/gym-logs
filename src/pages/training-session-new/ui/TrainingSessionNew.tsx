@@ -1,10 +1,10 @@
-import { Flex, Stack, Text } from "@mantine/core";
+import { Button, Flex, Stack, Text } from "@mantine/core";
 import { observer } from "mobx-react-lite";
-import { newTrainingSessionStore } from "../model/newTrainingSession";
 import { TrainingDuration } from "./TrainingDuration/TrainingDuration";
+import { newTrainingSessionStore } from "@/entities/trainings-session";
 
 export const NewTrainingSession = observer(() => {
-  const { startedAt } = newTrainingSessionStore;
+  const { startedAt, resumeTraining, pauseTraining } = newTrainingSessionStore;
 
   return (
     <Stack component={"main"}>
@@ -16,6 +16,10 @@ export const NewTrainingSession = observer(() => {
       <Flex>
         <Text>Продолжительность тренировки:</Text>
         <TrainingDuration />
+      </Flex>
+      <Flex>
+        <Button onClick={pauseTraining}>⏸️</Button>
+        <Button onClick={resumeTraining}>►</Button>
       </Flex>
     </Stack>
   );

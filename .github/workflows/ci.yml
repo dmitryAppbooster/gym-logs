@@ -9,72 +9,49 @@ on:
       - master
 
 jobs:
-  checkout:
-    name: Checkout repository
+  setup:
+    name: Checkout & Setup Node.js
     runs-on: ubuntu-latest
+    outputs:
+      yarn-cache: ${{ steps.cache-yarn.outputs.cache-hit }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-  setup-node:
-    name: Set up Node.js
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 21.1.0
-          cache: "yarn"
-
+      - name: Cache Yarn dependencies
+        id: cache-yarn
+        uses: actions/cache@v3
+        with:
+          path: ~/.yarn/cache
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+  
   install-dependencies:
     name: Install dependencies
-    needs: setup-node
+    needs: setup
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 21.1.0
-          cache: "yarn"
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
   type-check:
     name: Check TypeScript types
-    needs: setup-node
+    needs: install-dependencies
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 21.1.0
-          cache: "yarn"
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
       - name: TypeScript Type Check
         run: yarn type-check
 
   build:
     name: Build the app
-    needs: 
+    needs:
       - install-dependencies
       - type-check
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 21.1.0
-          cache: "yarn"
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
       - name: Build project
         run: yarn build

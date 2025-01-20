@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "type-check": "tsc --noEmit"
+    "types": "tsc --noEmit"
   },
   "dependencies": {
     "@mantine/core": "7.15.3",

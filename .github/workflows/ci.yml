@@ -1,4 +1,4 @@
-name: CI/CD
+name: CI/CD for Gym Logs
 
 on:
   push:
@@ -6,51 +6,32 @@ on:
       - master
   pull_request:
     branches:
-      - master
+      - main
 
 jobs:
-  setup:
-    name: Checkout & Setup Node.js
+  build-and-test:
     runs-on: ubuntu-latest
-    outputs:
-      yarn-cache: ${{ steps.cache-yarn.outputs.cache-hit }}
+
     steps:
+      # 1. Checkout code
       - name: Checkout repository
         uses: actions/checkout@v3
+
+      # 2. Set up Node.js with caching
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 21.1.0
-      - name: Cache Yarn dependencies
-        id: cache-yarn
-        uses: actions/cache@v3
-        with:
-          path: ~/.yarn/cache
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-  
-  install-dependencies:
-    name: Install dependencies
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
+          cache: "yarn"
+
+      # 3. Install dependencies
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --frozen-lockfile 
 
-  # type-check:
-  #   name: Check TypeScript types
-  #   needs: setup
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: TypeScript Type Check
-  #       run: yarn type-check --frozen-lockfile
+      # 4. Check types
+      - name: Check TypeScript types
+        run: yarn types
 
-  build:
-    name: Build the app
-    needs:
-      - install-dependencies
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build project
+      # 5. Build the project
+      - name: Build the app
         run: yarn build

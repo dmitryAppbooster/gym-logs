@@ -40,11 +40,11 @@ jobs:
 
   type-check:
     name: Check TypeScript types
-    needs: install-dependencies
+    needs: setup
     runs-on: ubuntu-latest
     steps:
       - name: TypeScript Type Check
-        run: yarn type-check
+        run: tsc --noEmit
 
   build:
     name: Build the app

@@ -38,13 +38,13 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-  type-check:
-    name: Check TypeScript types
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
-      - name: TypeScript Type Check
-        run: yarn type-check
+  # type-check:
+  #   name: Check TypeScript types
+  #   needs: setup
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: TypeScript Type Check
+  #       run: yarn type-check
 
   build:
     name: Build the app

@@ -16,7 +16,7 @@ export const CardTrainingSession = observer(
 
     return (
       <Card shadow="sm" padding="lg" radius="md" withBorder>
-        <Text>{trainingSession.date}</Text>
+        <Text>{trainingSession.startedAt}</Text>
         <Text>День груди</Text>
         <CloseButton
           onClick={() => deleteTriningSession({ id: trainingSession.id })}
@@ -50,7 +50,7 @@ export const CardTrainingSession = observer(
             );
           })}
         </ul>
-        <FormNewExerciseWithSets trainingSessionId={trainingSession.id} />
+        <FormNewExerciseWithSets />
       </Card>
     );
   }

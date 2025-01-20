@@ -1,6 +1,6 @@
 import { ExerciseWithSets, WorkingSet } from "@/entities/trainings-session";
 import { getCurrentDate } from "@/shared/libs";
-import { autorun, makeAutoObservable } from "mobx";
+import { makeAutoObservable } from "mobx";
 
 const KEY_NEW_TRAINING_SESSION_DATA = "NEW_TRAINING_SESSION_DATA";
 

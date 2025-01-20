@@ -1,37 +1,80 @@
-name: CI/CD for Gym Logs
+name: CI/CD
 
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
-  build-and-test:
+  checkout:
+    name: Checkout repository
     runs-on: ubuntu-latest
-
     steps:
-      # 1. Checkout code
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2. Set up Node.js with caching
+  setup-node:
+    name: Set up Node.js
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 21.1.0
           cache: "yarn"
 
-      # 3. Install dependencies
+  install-dependencies:
+    name: Install dependencies
+    needs: setup-node
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 21.1.0
+          cache: "yarn"
       - name: Install dependencies
-        run: yarn install --frozen-lockfile 
+        run: yarn install --frozen-lockfile
 
-      # 4. Check types
-      - name: Check TypeScript types
+  type-check:
+    name: Check TypeScript types
+    needs: setup-node
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 21.1.0
+          cache: "yarn"
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: TypeScript Type Check
         run: yarn type-check
 
-      # 5. Build the project
-      - name: Build the app
+  build:
+    name: Build the app
+    needs: 
+      - install-dependencies
+      - type-check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 21.1.0
+          cache: "yarn"
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Build project
         run: yarn build

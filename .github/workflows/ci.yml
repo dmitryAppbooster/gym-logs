@@ -1,4 +1,4 @@
-name: CI/CD for Gym Logs
+name: CI/CD
 
 on:
   push:
@@ -24,14 +24,23 @@ jobs:
           node-version: 21.1.0
           cache: "yarn"
 
-      # 3. Install dependencies
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile 
+      # 3. Cache Yarn dependencies
+      - name: Cache Yarn dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.yarn/cache
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
-      # 4. Check types
+      # 4. Install dependencies
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      # 5. Check types
       - name: Check TypeScript types
         run: yarn types
 
-      # 5. Build the project
+      # 6. Build the project
       - name: Build the app
         run: yarn build

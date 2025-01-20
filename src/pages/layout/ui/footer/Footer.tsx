@@ -28,7 +28,7 @@ export const Footer = ({ ...rest }: FooterProps) => {
             Charts
           </Tabs.Tab>
           <Tabs.Tab color="green" component={"li"} value="templates">
-            Workout Templates
+            Шаблоны тренировок
           </Tabs.Tab>
         </Tabs.List>
       </Tabs>

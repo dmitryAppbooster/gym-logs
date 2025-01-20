@@ -4,60 +4,47 @@ import { Button, Group, Select, Stack } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { observer } from "mobx-react-lite";
 
-type FormNewExerciseWithSetsProps = {
-  trainingSessionId: string;
-};
+export const FormNewExerciseWithSets = observer(() => {
+  const form = useForm<
+    Omit<ExerciseWithSets, "createdAt" | "updatedAt" | "id">
+  >({
+    mode: "uncontrolled",
+    initialValues: {
+      exerciseId: "",
+      sets: [],
+    },
 
-export const FormNewExerciseWithSets = observer(
-  ({ trainingSessionId }: FormNewExerciseWithSetsProps) => {
-    const form = useForm<
-      Omit<ExerciseWithSets, "createdAt" | "updatedAt" | "id">
-    >({
-      mode: "uncontrolled",
-      initialValues: {
-        trainingSessionId,
-        exerciseId: "",
-        sets: [],
+    validate: {
+      exerciseId: (value) => {
+        if (value.trim().length === 0) {
+          return "Обязательно к заполнению";
+        }
       },
+    },
+  });
 
-      validate: {
-        trainingSessionId: (value) => {
-          if (!value) {
-            return "Упражнение должно принадлежать тренировачной сессии";
-          }
-        },
+  const handleSubmit = (e: React.FormEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    form.validate();
 
-        exerciseId: (value) => {
-          if (value.trim().length === 0) {
-            return "Обязательно к заполнению";
-          }
-        },
-      },
-    });
+    if (!form.isValid()) return;
 
-    const handleSubmit = (e: React.FormEvent<HTMLDivElement>) => {
-      e.preventDefault();
-      form.validate();
+    console.log("ADD EXERCISE");
+  };
 
-      if (!form.isValid()) return;
+  return (
+    <Stack>
+      <Group onSubmit={handleSubmit} component={"form"} align="center">
+        <Select
+          label="Упражнение"
+          data={exercisesStore.allExercisesIdsForSelect}
+          searchable
+          key={form.key("exerciseId")}
+          {...form.getInputProps("exerciseId")}
+        />
 
-      console.log("ADD EXERCISE");
-    };
-
-    return (
-      <Stack>
-        <Group onSubmit={handleSubmit} component={"form"} align="center">
-          <Select
-            label="Упражнение"
-            data={exercisesStore.allExercisesIdsForSelect}
-            searchable
-            key={form.key("exerciseId")}
-            {...form.getInputProps("exerciseId")}
-          />
-
-          <Button type="submit">Добавить урпжнение</Button>
-        </Group>
-      </Stack>
-    );
-  }
-);
+        <Button type="submit">Добавить урпжнение</Button>
+      </Group>
+    </Stack>
+  );
+});

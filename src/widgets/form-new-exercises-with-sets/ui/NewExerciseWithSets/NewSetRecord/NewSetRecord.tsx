@@ -3,15 +3,10 @@ import { Button, Group, NumberInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { observer } from "mobx-react-lite";
 
-type NewSetRecordProps = {
-  exerciseId: string;
-};
-
-export const NewSetRecord = observer(({ exerciseId }: NewSetRecordProps) => {
+export const NewSetRecord = observer(() => {
   const form = useForm<Omit<WorkingSet, "createdAt" | "updatedAt" | "id">>({
     mode: "uncontrolled",
     initialValues: {
-      exerciseId,
       weight: 10,
       repetitions: 10,
     },

@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: TypeScript Type Check
-        run: tsc --noEmit
+        run: yarn type-check
 
   build:
     name: Build the app

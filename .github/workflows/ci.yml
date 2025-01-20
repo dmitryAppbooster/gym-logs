@@ -44,13 +44,12 @@ jobs:
   #   runs-on: ubuntu-latest
   #   steps:
   #     - name: TypeScript Type Check
-  #       run: yarn type-check
+  #       run: yarn type-check --frozen-lockfile
 
   build:
     name: Build the app
     needs:
       - install-dependencies
-      - type-check
     runs-on: ubuntu-latest
     steps:
       - name: Build project
